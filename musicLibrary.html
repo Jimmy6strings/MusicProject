@@ -51,13 +51,7 @@
 <script src='bower_components/backbone/backbone.js'></script>
 
 <script type="text/javascript">
-// class="artist-list-template" ln 74
-// <td><span class="artist"><%= artist %></span></td> ln 77
-// <td><span class="song"><%= song %></span></td> ln 78
-//  <td><span class="album"><%= album %></span></td> ln 79
-//   edit-artistInfo ln 84
-// delet-artistInfo, etc. ln 85
-//var ArtistInfo
+
 var ArtistInfo = Backbone.Model.extend({
    defaults: {
         artist: '',
@@ -67,16 +61,14 @@ var ArtistInfo = Backbone.Model.extend({
 });
 
 // Backbone Collection
-//var ArtistsList
+
 var ArtistList = Backbone.Collection.extend({});
 
 
 // instantiate a Collection
-//var artists = new ArtistList
 var artists = new ArtistList();
 
 // Backbone View for one blog
-//var ArtistView
 var ArtistView = Backbone.View.extend({
     // model: new ArtistInfo
     model: new ArtistInfo(),
@@ -85,25 +77,20 @@ var ArtistView = Backbone.View.extend({
         this.template = _.template($('.artist-list-template').html());
     },
     events: {
-        //edit-artistInfo, update-artistInfo, delete-artistInfo
+        
         'click .edit-artistInfo': 'edit',
         'click .delete-artistInfo': 'delete'
     },
     edit: function() {
-        //edit-artistInfo, update-artistInfo, delete-artistInfo
+      
         $('.edit-artistInfo').hide();
         $('.delete-artistInfo').hide();
-        //var artsist = '.artist'
-        //var song = '.song'
-        //var album = '.album'
+     
         var artist = this.$('.artist').html();
         var song = this.$('.song').html();
         var album = this.$('.album').html();
-        //'.artist').html('<input type="text" class="form-control artist-update" value="' + artist + '">');
         this.$('.artist').html('<input type="text" class="form-control artist-update" value="' + artist + '">');
-        //'.song').html('<input type="text" class="form-control song-update" value="' + song + '">');
         this.$('.song').html('<input type="text" class="form-control song-update" value="' + song + '">');
-        //'.album').html('<input type="text" class="form-control album-update" value="' + album + '">');
         this.$('.album').html('<input type="text" class="form-control album-update" value="' + album + '">');
     },
     delete: function() {
@@ -116,11 +103,9 @@ var ArtistView = Backbone.View.extend({
 });
 
 // Backbone View for all blogs
-//ArtistInfoView
+
 var ArtistInfoView = Backbone.View.extend({
-    //model: artists
     model: artists,
-    //el: $('.artists-list'),
     el: $('.artists-list'),
     initialize: function() {
         var that = this;
@@ -136,36 +121,24 @@ var ArtistInfoView = Backbone.View.extend({
         var that = this;
         this.$el.html('');
         _.each(this.model.toArray(), function(artist) {
-                            //new ArtistView
             that.$el.append((new ArtistView({model: artist})).render().$el);
         });
         return this;
     }
 });
-//var artistInfoView = new ArtistInfoView();
 var artistInfoView = new ArtistInfoView();
 
 $(document).ready(function() {
-    //$('.add-artist')
     $('.add-artist').on('click', function() {
-        //var artist = new ArtistInfo
         var artist = new ArtistInfo({
-            //artist: $('.artist-input').val()
             artist: $('.artist-input').val(),
-            //song: $('.song-input').val()
             song: $('.song-input').val(),
-            //album: $('.album-input').val()
             album: $('.album-input').val()
         });
-        //$('.artist-input').val('');
         $('.artist-input').val('');
-        //$('.artist-input').val('');
         $('.song-input').val('');
-        //$('.artist-input').val('');
         $('.album-input').val('');
-        //console.log(artist.toJSON());
         console.log(artist.toJSON());
-        //artists.add(artist);
         artists.add(artist);
     })
 })
